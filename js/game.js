@@ -910,7 +910,6 @@ function loop() {
   newTime = new Date().getTime();
   deltaTime = newTime - oldTime;
   oldTime = newTime;
-  console.log("loop");
   if (game.status == "playing") {
     if (game.keys >= game.level + 1) {
       keysToNext.innerHTML = 0;
@@ -949,17 +948,13 @@ function loop() {
       if (game.keys > game.level) {
         game.levelLastUpdate = Math.floor(game.distance);
         createNextLevelEffect();
-        console.log(game.level);
         game.distance += 20;
         game.level++;
-        console.log(game.level);
         game.keys = 0;
-        console.log(game.keys);
         fieldLevel.innerHTML = Math.floor(game.level);
         game.targetBaseSpeed =
           game.initSpeed + game.incrementSpeedByLevel * game.level;
       } else {
-        console.log("entra");
         game.energy = 0;
         game.status = "gameover";
       }
@@ -1031,7 +1026,6 @@ function removeEnergy() {
 function addKey() {
   game.keys += game.keyvalue;
   game.keys = Math.min(game.keys, 100);
-  console.log(game.keys);
 }
 function removeKeys() {
   game.keys = 0;
