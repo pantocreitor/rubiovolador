@@ -12,6 +12,10 @@
       rel="stylesheet"
       type="text/css"
     />
+    <link
+      rel="stylesheet"
+      href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/smoothness/jquery-ui.css"
+    />
     <link rel="stylesheet" type="text/css" href="css/game.css" />
     <script type="text/javascript" src="js/TweenMax.min.js"></script>
     <script type="text/javascript" src="js/three.min.js"></script>
@@ -68,13 +72,95 @@
       </div>
       <div class="world" id="world"></div>
       <div class="message message--replay" id="replayMessage">
-        Volver a jugar
+        Vover a jugar
       </div>
+
+      <div id="dialog" title="Basic dialog">¿Que quieres hacer?</div>
       <div class="message message--instructions" id="instructions">
-        <span style="color: gold"" >Llaves para superar nivel:
-        <span id="showKeysToNext" style="color: gold; font-size: 3em"></span>
-      </span>¡Coge la energía!<span>¡Huye de las bolas rojas!</span>
+        <div class="keysleft">
+          <div style="color: gold"" >Llaves para superar nivel:
+        </div>
+        <div id="showKeysToNext" style="color: gold; font-size: 3em"></div>
       </div>
+      ¡Coge la energía!<span>¡Huye de las bolas rojas!</span>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
+
+    <script>
+      $(function() {
+        $("#dialog").dialog({
+          buttons: [
+            {
+              text: "Jugar",
+              icon: "ui-icon-play",
+              click: function() {
+                $(this).dialog("close");
+                document.querySelector("#instructions").style.display =
+                  "inline-block";
+                document.querySelector(".score").style.visibility = "visible";
+                document.querySelector(".keysleft").style.visibility =
+                  "visible";
+                init();
+              }
+            },
+            {
+              text: "Pantalla completa",
+              icon: "ui-icon-arrowthick-2-ne-sw",
+              width: "220px",
+              click: function() {
+                openFullscreen();
+              }
+            },
+            {
+              text: "Ver el framework",
+              icon: "ui-icon-document",
+              click: function() {
+                window.open(
+                  "https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene"
+                );
+              }
+            }
+          ],
+          closeOnEscape: false,
+          draggable: false,
+          modal: true,
+          resizable: false,
+          show: { effect: "scale", duration: 1000 },
+          hide: { effect: "explode", pieces: 18, duration: 1000 }
+        });
+      });
+
+      var screen = document.documentElement;
+
+      $(document).ready(function() {
+        $(".ui-button").hover(
+          function() {
+            console.log("sdfg");
+            $(this)
+              .filter(":not(:animated)")
+              .animate({ width: "270px" });
+          },
+          function() {
+            $(this).animate({ width: "220px" });
+          }
+        );
+      });
+
+      function openFullscreen() {
+        if (screen.requestFullscreen) {
+          screen.requestFullscreen();
+        } else if (screen.mozRequestFullScreen) {
+          /* Firefox */
+          screen.mozRequestFullScreen();
+        } else if (screen.webkitRequestFullscreen) {
+          /* Chrome, Safari and Opera */
+          screen.webkitRequestFullscreen();
+        } else if (screen.msRequestFullscreen) {
+          /* IE/Edge */
+          screen.msRequestFullscreen();
+        }
+      }
+    </script>
   </body>
 </html>
